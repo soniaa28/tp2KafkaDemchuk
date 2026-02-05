@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="center">
+    <div class="box form">
+        <h1>Connexion</h1>
+
+        <div class="error" th:if="${error == 'bad_credentials'}">
+            Email ou mot de passe incorrect.
+        </div>
+
+        <form method="post" th:action="@{/store/login}">
+            <label>Email</label>
+            <input name="email" type="email" required>
+
+            <label>Mot de passe</label>
+            <input name="password" type="password" required>
+
+            <button type="submit">Se connecter</button>
+        </form>
+
+        <p>
+            <a th:href="@{/store/register}">Créer un compte</a> |
+            <a th:href="@{/store/home}">Retour</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

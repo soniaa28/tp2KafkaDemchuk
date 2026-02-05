@@ -1,0 +1,87 @@
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+}
+
+.page{
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 12px;
+}
+
+.box{
+    background:white;
+    border:1px solid #ddd;
+    padding:16px;
+    border-radius:6px;
+}
+
+.center{
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 12px;
+}
+
+.form{
+    width: 390px;
+}
+
+.h1{ margin:0 0 12px; }
+p{ margin:10px 0; }
+
+.input{
+    width:100%;
+    padding:8px;
+    margin:6px 0 12px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+button{
+    padding:8px 12px;
+    border:1px solid #333;
+    background:#333;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+button:hover{ background:#222; }
+
+a{ color:#0066cc; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+.table th, .table td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:left;
+}
+.table th{ background:#f7f7f7; }
+
+.error{
+    color:#b00020;
+    margin-bottom:10px;
+}
+
+.inline{ display:inline; }
+
+label{
+    display:block;
+    margin: 0 0 6px;
+    font-weight: 600;
+}
+
+.form h1{
+    margin-bottom: 14px;
+}
+
+.form input{
+    margin: 0 0 4px;
+}

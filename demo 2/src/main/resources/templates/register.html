@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="center">
+    <div class="box form">
+        <h1>Inscription</h1>
+
+        <div class="error" th:if="${error == 'email_exists'}">
+            Cet email est déjà utilisé.
+        </div>
+
+        <form method="post" th:action="@{/store/register}">
+            <label>Email</label>
+            <input name="email" type="email" required>
+
+            <label>Mot de passe</label>
+            <input name="password" type="password" required>
+
+            <label>Nom</label>
+            <input name="nom" required>
+
+            <label>Prénom</label>
+            <input name="prenom" required>
+
+            <button type="submit">Créer le compte</button>
+        </form>
+
+        <p>
+            <a th:href="@{/store/login}">Se connecter</a> |
+            <a th:href="@{/store/home}">Retour</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

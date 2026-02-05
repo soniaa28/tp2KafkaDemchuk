@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="page">
+    <div class="box">
+        <h1>Accueil</h1>
+
+        <div th:if="${client == null}">
+            <p>Bienvenue !</p>
+            <p>
+                <a th:href="@{/store/login}">Se connecter</a> |
+                <a th:href="@{/store/register}">Créer un compte</a>
+            </p>
+        </div>
+
+        <div th:if="${client != null}">
+            <p>
+                Bonjour <b th:text="${client.prenom}"></b> <span th:text="${client.nom}"></span>
+            </p>
+
+            <p>
+                <a th:href="@{/store/commandes}">Mes commandes</a>
+            </p>
+
+            <form class="inline" method="post" th:action="@{/store/logout}">
+                <button type="submit">Se déconnecter</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Commande</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="page">
+    <div class="box">
+        <h1>Commande</h1>
+
+        <p>
+            Client: <b th:text="${client.prenom}"></b> <span th:text="${client.nom}"></span><br>
+            ID commande: <b th:text="${commande.id}"></b>
+        </p>
+
+        <h2>Ajouter une ligne</h2>
+        <form method="post" th:action="@{/store/commandes/{id}/lignes/add(id=${commande.id})}">
+            <label>Libellé</label>
+            <input name="libelle" required>
+
+            <label>Quantité</label>
+            <input name="quantite" type="number" min="1" value="1" required>
+
+            <label>Prix unitaire</label>
+            <input name="prixUnitaire" type="number" step="0.01" min="0" value="0" required>
+
+            <button type="submit">Ajouter</button>
+        </form>
+
+        <h2>Lignes</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Libellé</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(lignes)}">
+                <td colspan="5">Aucune ligne</td>
+            </tr>
+
+            <tr th:each="l : ${lignes}">
+                <td th:text="${l.id}"></td>
+                <td th:text="${l.libelle}"></td>
+                <td th:text="${l.quantite}"></td>
+                <td th:text="${l.prixUnitaire}"></td>
+                <td>
+                    <form method="post"
+                          th:action="@{/store/commandes/{cid}/lignes/{lid}/delete(cid=${commande.id}, lid=${l.id})}">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <a th:href="@{/store/commandes}">Retour</a> |
+            <a th:href="@{/store/commandes/{id}/print(id=${commande.id})}">Imprimer</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

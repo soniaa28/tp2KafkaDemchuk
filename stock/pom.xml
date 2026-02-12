@@ -5,12 +5,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- родитель Spring Boot: он подтянет правильные версии зависимостей -->
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.2</version>
-		<relativePath/> <!-- при необходимости искать родителя в локальном репозитории -->
+		<relativePath/>
 	</parent>
 
 	<groupId>fr.univ.lille</groupId>
@@ -37,19 +37,19 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- REST -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- Kafka -->
+
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-		<!-- Тестовые зависимости -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,7 +64,7 @@
 
 	<build>
 		<plugins>
-			<!-- Плагин для сборки Spring Boot -->
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

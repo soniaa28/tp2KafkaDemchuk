@@ -11,7 +11,7 @@ public class StockService {
     private final ConcurrentHashMap<String, Integer> stock = new ConcurrentHashMap<>();
 
     public StockService() {
-        // стартовые значения (можешь поменять)
+        // стартовые значения
         stock.put("tttt", 1000);
         stock.put("cafe", 50);
         stock.put("the", 30);

@@ -56,7 +56,11 @@
                           th:action="@{/store/commandes/{cid}/lignes/{lid}/delete(cid=${commande.id}, lid=${l.id})}">
                         <button type="submit">Supprimer</button>
                     </form>
+                    <form th:action="@{'/store/commandes/' + ${commande.id} + '/submit'}" method="post" style="display:inline;">
+                        <button type="submit">Soumettre</button>
+                    </form>
                 </td>
+
             </tr>
             </tbody>
         </table>

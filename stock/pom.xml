@@ -5,25 +5,39 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- родитель Spring Boot: он подтянет правильные версии зависимостей -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.2</version>
-		<relativePath/>
+		<relativePath/> <!-- при необходимости искать родителя в локальном репозитории -->
 	</parent>
 
 	<groupId>fr.univ.lille</groupId>
 	<artifactId>stock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>stock</name>
-	<description>stock</description>
+	<packaging>jar</packaging>
 
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 
+	<!-- Dependency Management через BOM Spring Boot (опционально) -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${project.parent.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
-		<!-- Web (REST) -->
+		<!-- REST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -35,7 +49,7 @@
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-		<!-- Tests -->
+		<!-- Тестовые зависимости -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -50,6 +64,7 @@
 
 	<build>
 		<plugins>
+			<!-- Плагин для сборки Spring Boot -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

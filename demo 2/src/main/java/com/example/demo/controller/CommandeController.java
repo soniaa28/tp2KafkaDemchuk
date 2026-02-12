@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.entity.Client;
 import com.example.demo.entity.Commande;
 import com.example.demo.service.ClientService;
@@ -10,22 +9,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
+import com.example.demo.kafka.KafkaProducer;
 import java.util.List;
-
+import com.example.demo.kafka.OrderSubmittedEvent;
 @Controller
 public class CommandeController {
 
     private final ClientService clientService;
     private final CommandeService commandeService;
     private final LigneService ligneService;
-
+    private final KafkaProducer kafkaProducer;
     public CommandeController(ClientService clientService,
                               CommandeService commandeService,
-                              LigneService ligneService) {
+                              LigneService ligneService ,
+                              KafkaProducer kafkaProducer) {
         this.clientService = clientService;
         this.commandeService = commandeService;
         this.ligneService = ligneService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     private Client requireClient(HttpSession session) {
@@ -92,5 +93,26 @@ public class CommandeController {
         mv.addObject("lignes", lignes);
         mv.addObject("total", total);
         return mv;
+    }
+    @PostMapping("/store/commandes/{id}/submit")
+    public RedirectView submit(@PathVariable Long id, HttpSession session) {
+        Client client = requireClient(session);
+        if (client == null) return new RedirectView("/store/login");
+
+        Commande commande = commandeService.findForClient(id, client.getEmail());
+        if (commande == null) return new RedirectView("/store/commandes");
+
+        var lignes = ligneService.listByCommande(id);
+
+        OrderSubmittedEvent event = new OrderSubmittedEvent();
+        event.commandeId = id;
+        event.clientEmail = client.getEmail();
+        event.lignes = lignes.stream()
+                .map(l -> new OrderSubmittedEvent.LigneDto(l.getLibelle(), l.getQuantite()))
+                .toList();
+
+        kafkaProducer.sendOrderSubmitted(event);
+
+        return new RedirectView("/store/commandes/" + id);
     }
 }
